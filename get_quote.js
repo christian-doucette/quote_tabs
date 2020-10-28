@@ -19,9 +19,7 @@ fetch(quote_api_url)
       response.json().then(function(data) {
         console.log("Successful!")
         //Sets page based on quote API
-        if (choice==1) set_quote_stormconsultancy(data)
-        else if (choice==2) set_quote_programmingquotes(data)
-        else set_quote_randommathquote(data)
+        set_quote(data)
       });
     }
   )
@@ -30,24 +28,20 @@ fetch(quote_api_url)
   });
 
 
+function set_quote(response_json) {
+  if (choice==1) { //storm consultancy
+    var quote_text = response_json.quote.trim();
+    var quote_author = response_json.author.trim();
+  }
+  else if (choice==2) { //programming quotes
+    var quote_text = response_json.en.trim();
+    var quote_author = response_json.author.trim();
+  }
+  else {
+    var quote_text = response_json.quote.trim();
+    var quote_author = response_json.author.trim();
+  }
 
-function set_quote_stormconsultancy(response_json) {
-  quote_text = response_json.quote.trim();
-  quote_author = response_json.author.trim();
-  document.getElementById("quote").innerHTML = `\"${quote_text}\"`
-  document.getElementById("author").innerHTML = `-${quote_author}`;
-}
-
-function set_quote_programmingquotes(response_json) {
-  quote_text = response_json.en.trim();
-  quote_author = response_json.author.trim();
-  document.getElementById("quote").innerHTML = `\"${quote_text}\"`
-  document.getElementById("author").innerHTML = `-${quote_author}`;
-}
-
-function set_quote_randommathquote(response_json) {
-  quote_text = response_json.quote.trim();
-  quote_author = response_json.author.trim();
   document.getElementById("quote").innerHTML = `\"${quote_text}\"`
   document.getElementById("author").innerHTML = `-${quote_author}`;
 }
