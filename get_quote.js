@@ -1,9 +1,8 @@
 //Chooses one of the three quote APIs randomly
-choice = Math.floor(Math.random() * 3) + 1
-console.log(choice)
-if (choice==1) var quote_api_url = "http://quotes.stormconsultancy.co.uk/random.json"
-else if (choice==2) var quote_api_url = "https://programming-quotes-api.herokuapp.com/quotes/random/lang/en"
-else var quote_api_url = "https://random-math-quote-api.herokuapp.com/"
+const api_options = ["http://quotes.stormconsultancy.co.uk/random.json", "https://random-math-quote-api.herokuapp.com/"]
+choice = Math.floor(Math.random() * api_options.length)
+var quote_api_url = api_options[choice]
+
 
 
 //Makes API request
@@ -29,19 +28,8 @@ fetch(quote_api_url)
 
 
 function set_quote(response_json) {
-  if (choice==1) { //storm consultancy
-    var quote_text = response_json.quote.trim();
-    var quote_author = response_json.author.trim();
-  }
-  else if (choice==2) { //programming quotes
-    var quote_text = response_json.en.trim();
-    var quote_author = response_json.author.trim();
-  }
-  else {
-    var quote_text = response_json.quote.trim();
-    var quote_author = response_json.author.trim();
-  }
-
+  var quote_text = response_json.quote.trim();
+  var quote_author = response_json.author.trim();
   document.getElementById("quote").innerHTML = `\"${quote_text}\"`
   document.getElementById("author").innerHTML = `-${quote_author}`;
 }
